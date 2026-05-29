@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Lyrics" class="control-label"></label>
-                <input asp-for="Lyrics" class="form-control" />
+                <textarea asp-for="Lyrics" id="editor" class="form-control"></textarea>
                 <span asp-validation-for="Lyrics" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -71,4 +71,20 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
+@section Scripts
+{
+    <!-- Nhúng thư viện CKEditor 5 từ CDN -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+                // Cấu hình các công cụ hiển thị trên thanh toolbar (tùy chọn)
+                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'insertTable', 'undo', 'redo']
+            })
+            .then(editor => {
+                console.log('Editor was initialized', editor);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>}
