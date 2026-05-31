@@ -15,11 +15,12 @@ namespace mucsic.Controllers
     {
         private readonly AppDbContext _context;
         
-        private readonly IPhotoService _SingerPhotoService;
+        private readonly IPhotoService _singerPhotoService;
 
-        public ComposerController(AppDbContext context)
+        public ComposerController(AppDbContext context, IPhotoService singerPhotoService)
         {
             _context = context;
+            _singerPhotoService = singerPhotoService;
         }
 
         // GET: Composer
@@ -61,22 +62,23 @@ namespace mucsic.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Composer(Composer obj)
         {
-            if (ModelState.IsValid) return View("Composer", obj);
+            if (!ModelState.IsValid)
             {
-                if (obj.ImageFile != null)
-                {
-                    var result = await _SingerPhotoService.AddPhotoAsync(obj.ImageFile);
-                    if (result.Error != null)
-                    {
-                        ModelState.AddModelError("ImageFile", "Tải ảnh thất bại.");
-                        return View("Composer", obj);
-                    }
-                    obj.ImageUrl = result.SecureUrl.AbsoluteUri;
-                }
-                _context.Add(obj);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Create));
+                return View("Create", obj);
             }
+            if (obj.ImageFile != null)
+            {
+                var result = await _singerPhotoService.AddPhotoAsync(obj.ImageFile);
+                if (result.Error != null)
+                {
+                    ModelState.AddModelError("ImageFile", "Tải ảnh thất bại." + result.Error);
+                    return View("Create", obj);
+                }
+                obj.ImageUrl = result.SecureUrl.AbsoluteUri;
+            }
+            _context.Add(obj);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Create));
         }
 
         // GET: Composer/Edit/5

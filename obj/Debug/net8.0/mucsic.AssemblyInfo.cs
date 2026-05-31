@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("mucsic")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e7c6e675c96dc0c6e5fb0ae89b35dac5bfe97e26")]
 [assembly: System.Reflection.AssemblyProductAttribute("mucsic")]
 [assembly: System.Reflection.AssemblyTitleAttribute("mucsic")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
